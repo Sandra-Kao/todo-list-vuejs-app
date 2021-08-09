@@ -5,7 +5,7 @@ module.exports = {
     // debug: isDebug_mode,
     // devtools: isDebug_mode,
     publicPath: process.env.NODE_ENV === 'production'
-        ? '/'
+        ? '/todo-list-vuejs-app/'
         : '/',
     filenameHashing: false,
     chainWebpack: config => {
