@@ -1,0 +1,24 @@
+ [
+        {
+            "id":1,
+            "item": "Draw mock-up",
+            "isDone": true,
+            "dueToDate":"",
+            "details":""
+
+        },
+        {
+            "id":2,
+            "item": "UI/UX design",
+            "isDone": false,
+            "dueToDate":"",
+            "details":""
+        },
+        {
+            "id":3,
+            "item": "Write HTML and CSS",
+            "isDone": false,
+            "dueToDate":"",
+            "details":""
+        }
+    ]
