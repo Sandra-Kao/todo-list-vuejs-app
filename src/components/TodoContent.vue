@@ -2,8 +2,12 @@
   <section>
     <ul class="todo-content__outer-1000 todo-wrapper">
       <li class="todo-content__item-line" v-for="todo in todos" :key="todo.id">
-        <p class="padding-helf" @click="switchChecked(todo.id)">
-          <i class="far fa-circle" :class="{ checked: todo.isDone }"></i>
+        <i
+          class="far fa-circle"
+          :class="{ checked: todo.isDone }"
+          @click="switchChecked(todo.id)"
+        ></i>
+        <p class="padding-helf" @click="updateTodoOptions(todo)">
           <span>{{ todo.item }}</span>
         </p>
       </li>
@@ -19,25 +23,11 @@
 </template>
 
 <script>
-// import $store from "@/store/index.js";
-
-// import {computed} from 'vue';
-// import {useStore} from "vuex";
-import Vuex from 'vuex'
+import Vuex from "vuex";
+import router from "../router";
 export default {
   name: "TodoContent",
   props: {},
-  // setup(){
-  //   const store = useStore();
-
-  //   let todos = computed(function () {
-  //     return store.state.todos
-  //   });
-
-  //   return {
-  //     todos
-  //   }
-  // },
   mounted() {},
   computed: {
     todos() {
@@ -45,12 +35,21 @@ export default {
     },
   },
   methods: {
-    ...Vuex.mapActions(["setTodos"]),
+    ...Vuex.mapActions(["switchTodoItemsChecked","setSelectedTodo"]),
 
+    $_setRouter(url) {
+      router.push(url);
+    },
     switchChecked(id) {
-      console.log("todo", id);
       const newTodo = this.todos.find((todo) => todo.id === id);
-      this.setTodos(newTodo);
+      this.switchTodoItemsChecked(newTodo);
+    },
+    // addTodoOptions() {
+    //   this.$_setRouter("/newtodo");
+    // },
+    updateTodoOptions(todo) {
+      this.setSelectedTodo(todo);
+      this.$_setRouter("/updatetodo");
     },
   },
 };
@@ -116,6 +115,10 @@ export default {
 .todo-content__item-line i {
   position: relative;
   margin-right: 1rem;
+}
+.todo-content__item-line i:hover {
+  cursor: pointer;
+  color: var(--color-white);
 }
 .todo-content__item-line i::after {
   content: "";

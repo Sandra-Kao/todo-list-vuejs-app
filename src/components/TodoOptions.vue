@@ -1,52 +1,74 @@
 <template>
   <section class="todo-options todo-wrapper">
     <label>Todo *</label>
-    <input type="text" placeholder="" :value="todo.item" />
+    <input type="text" placeholder="" :value="selectedTodo.item" />
 
     <label>Due To Date</label>
-    <input type="date" placeholder="" :value="todo.dueToDate" />
+    <input type="date" placeholder="" :value="selectedTodo.dueToDate" />
 
     <label>Details</label>
-    <textarea type="text" :value="todo.details" maxlength="500" />
+    <textarea type="text" :value="selectedTodo.details" maxlength="500" />
 
     <div class="todo-options__action">
-
-      <div class="padding-helf">
+      <div class="padding-helf" @click="goPageHome">
         <button class="circle-btn">
           <i class="fas fa-arrow-left"></i>
         </button>
       </div>
 
-      <router-link to="/" class="padding-helf">
-        <button class="circle-btn padding-helf">
-          <i class="far fa-thumbs-up"></i>
-        </button>
-      </router-link>
-
+      <!-- <router-link to="/" class="padding-helf">
+      </router-link> -->
+      <button class="circle-btn padding-helf" @click="submitOptions">
+        <i class="far fa-thumbs-up"></i>
+      </button>
     </div>
   </section>
 </template>
 
 <script>
 import $store from "@/store/index.js";
+import Vuex from "vuex";
+import router from "../router";
 export default {
   name: "TodoOptions",
   props: {},
   data() {
     return {
-      todo: {
-        item: "",
-        isDone: false,
-        dueToDate: "",
-        details: "",
-      },
+      // todo: {
+      //   item: "",
+      //   isDone: false,
+      //   dueToDate: "",
+      //   details: "",
+      // },
     };
   },
-  mounted() {
-  },
+  mounted() {},
   computed: {
     todos() {
       return $store.state.todos;
+    },
+    selectedTodo() {
+      return $store.state.selectedTodo;
+    },
+  },
+  methods: {
+    ...Vuex.mapActions(["setSelectedTodo"]),
+
+    $_setRouter(url) {
+      router.push(url);
+    },
+    goPageHome() {
+      const clearTodoOptions = {
+        item: "",
+        isDone: true,
+        dueToDate: "",
+        details: "",
+      };
+      this.setSelectedTodo(clearTodoOptions);
+      this.$_setRouter("/");
+    },
+    submitOptions() {
+      console.log(this.selectedTodo);
     },
   },
 };

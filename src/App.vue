@@ -17,6 +17,31 @@
   </div>
 </template>
 
+
+
+<script>
+import Vuex from "vuex";
+import router from "./router";
+export default {
+  name: "App",
+  props: {},
+  mounted() {
+    this.apiFetchTodoItems();
+    
+    let { name } = this.$route;
+    if (name !== "Home") {
+      router.replace("/");
+      // Prevent user enter the link from /add or /update
+    }
+  },
+  computed: {},
+  methods: {
+    ...Vuex.mapActions(["apiFetchTodoItems"]),
+  },
+};
+</script>
+
+
 <style>
 #app {
   font-family: "Quicksand", Avenir, Helvetica, Arial, sans-serif;
