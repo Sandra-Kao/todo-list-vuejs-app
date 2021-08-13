@@ -44,7 +44,7 @@ export default {
     return {
       todo: {
         item: "",
-        isDone: true,
+        isDone: false,
         dueToDate: null,
         details: "",
       },

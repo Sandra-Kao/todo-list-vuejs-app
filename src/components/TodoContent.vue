@@ -7,17 +7,23 @@
           :class="{ checked: todo.isDone }"
           @click="switchChecked(todo.id)"
         ></i>
-        <p class="padding-helf" @click="updateTodoOptions(todo)">
+        <p
+          class="todo-content__item-main padding-helf"
+          @click="updateTodoOptions(todo)"
+        >
           <span>{{ todo.item }}</span>
+          <span class="dueToDate">{{ todo.dueToDate | dateFormat }}</span>
         </p>
+        <i class="far fa-trash-alt" @click="deleteTodoOptions(todo.id)"></i>
       </li>
     </ul>
 
     <div class="todo-content__add-wrapper">
       <router-link to="/newtodo">
         <button class="circle-btn">
-          <i class="fas fa-plus"></i></button
-      ></router-link>
+          <i class="fas fa-plus"></i>
+        </button>
+      </router-link>
     </div>
   </section>
 </template>
@@ -35,7 +41,11 @@ export default {
     },
   },
   methods: {
-    ...Vuex.mapActions(["switchTodoItemsChecked","setSelectedTodo"]),
+    ...Vuex.mapActions([
+      "switchTodoItemsChecked",
+      "setSelectedTodo",
+      "setDeleteTodoItemsId",
+    ]),
 
     $_setRouter(url) {
       router.push(url);
@@ -50,6 +60,20 @@ export default {
     updateTodoOptions(todo) {
       this.setSelectedTodo(todo);
       this.$_setRouter("/updatetodo");
+    },
+    deleteTodoOptions(id) {
+      this.setDeleteTodoItemsId(id);
+    },
+  },
+  filters: {
+    dateFormat: (value) => {
+      const defultDate = new Date(value);
+
+      const month = (defultDate.getMonth() + 1).toString().padStart(2, "0");
+      const date = defultDate.getDate().toString().padStart(2, "0");
+      const fullYear = defultDate.getFullYear();
+
+      return `${fullYear}/${month}/${date}`;
     },
   },
 };
@@ -91,6 +115,7 @@ export default {
 }
 
 .todo-content__item-line {
+  position: relative;
   display: flex;
   text-align: left;
   align-items: center;
@@ -99,9 +124,32 @@ export default {
   border-radius: 25px;
   margin-bottom: 1rem;
 }
+// .todo-content__item-line::after {
+//   content: "\f2ed";
+//    font-family: "Font Awesome 5 Free";
+//   display: block;
+//   position:absolute;
+//   transform: translate(-50%,-50%);
+//   top:50%;
+//   right: 1%;
+// }
+// .todo-content__item-line::after:hover {
+//   cursor: pointer;
+//   color: var(--color-white);
+// }
+.todo-content__item-main {
+  display: flex;
+  flex-direction: column;
+}
+.todo-content__item-main .dueToDate {
+  margin-top: 1%;
+  font-size: 70%;
+  color: var(--color-primary-light);
+}
 .todo-content__item-line p {
   transition: 0.1s ease-out;
   width: 100%;
+  margin-right: 1rem;
 }
 .todo-content__item-line p:hover {
   cursor: pointer;
@@ -119,6 +167,10 @@ export default {
 .todo-content__item-line i:hover {
   cursor: pointer;
   color: var(--color-white);
+}
+.todo-content__item-line i:focus,
+.todo-content__item-line i:active {
+  color: var(--color-primary-light);
 }
 .todo-content__item-line i::after {
   content: "";

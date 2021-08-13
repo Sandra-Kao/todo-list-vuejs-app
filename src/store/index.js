@@ -25,8 +25,23 @@ export default new Vuex.Store({
     },
     actions: {
         apiFetchTodoItems({ commit }) {
+            const dateFormat = (value) => {
+
+                const defultDate = new Date(value);
+
+                const month = (defultDate.getMonth() + 1).toString().padStart(2, "0");
+                const date = defultDate.getDate().toString().padStart(2, "0");
+                const fullYear = defultDate.getFullYear();
+
+                return `${fullYear}/${month}/${date}`;
+            }
             API.fetchTodoItems()
                 .then(res => {
+                    let { data } = res;
+                    let i = res.data.length;
+                    for (i >= 0; i--;) {
+                        data[i].dueToDate = dateFormat(data[i].dueToDate)
+                    }
                     commit('updateTodos', res.data);
                 });
 
@@ -66,6 +81,18 @@ export default new Vuex.Store({
                     alert("Added todo");
                     router.push("/");
                 });
+            });
+
+        },
+        setDeleteTodoItemsId({ commit, state }, id) {
+            let { todos } = state;
+            // let i = todos.length;
+
+            API.deleteTodoItemsId(id).then(() => {
+                todos = todos.filter(item => item.id !== id);
+                alert("Deleted todo");
+                commit('updateTodos', todos);
+
             });
         }
     },
