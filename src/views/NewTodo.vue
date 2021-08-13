@@ -24,7 +24,6 @@ export default {
     };
   },
   mounted() {
-    console.table(this.todos);
   },
   computed: {
     todos() {

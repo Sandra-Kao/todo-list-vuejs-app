@@ -1,13 +1,21 @@
 <template>
   <section class="todo-options todo-wrapper">
     <label>Todo *</label>
-    <input type="text" placeholder="" :value="selectedTodo.item" />
+    <input type="text" placeholder=""  v-model="todo.item" />
 
     <label>Due To Date</label>
-    <input type="date" placeholder="" :value="selectedTodo.dueToDate" />
+    <input
+      type="date"
+      placeholder=""
+      v-model="todo.dueToDate"
+    />
 
     <label>Details</label>
-    <textarea type="text" :value="selectedTodo.details" maxlength="500" />
+    <textarea
+      type="text"
+      v-model="todo.details"
+      maxlength="500"
+    />
 
     <div class="todo-options__action">
       <div class="padding-helf" @click="goPageHome">
@@ -34,15 +42,19 @@ export default {
   props: {},
   data() {
     return {
-      // todo: {
-      //   item: "",
-      //   isDone: false,
-      //   dueToDate: "",
-      //   details: "",
-      // },
+      todo: {
+        item: "",
+        isDone: true,
+        dueToDate: null,
+        details: "",
+      },
     };
   },
-  mounted() {},
+  mounted() {
+    if (this.selectedTodo.id) {
+      this.todo = this.selectedTodo;
+    }
+  },
   computed: {
     todos() {
       return $store.state.todos;
@@ -52,7 +64,7 @@ export default {
     },
   },
   methods: {
-    ...Vuex.mapActions(["setSelectedTodo"]),
+    ...Vuex.mapActions(["setSelectedTodo", "setUpdateTodo", "setNewAddTodo"]),
 
     $_setRouter(url) {
       router.push(url);
@@ -68,7 +80,14 @@ export default {
       this.$_setRouter("/");
     },
     submitOptions() {
-      console.log(this.selectedTodo);
+      const { todo } = this;
+      if (todo && todo.id !== undefined) {
+        //update
+        this.setUpdateTodo(todo);
+      } else {
+        //add
+        this.setNewAddTodo(todo);
+      }
     },
   },
 };
