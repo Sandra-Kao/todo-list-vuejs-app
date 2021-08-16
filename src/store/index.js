@@ -26,7 +26,10 @@ export default new Vuex.Store({
     actions: {
         apiFetchTodoItems({ commit }) {
             const dateFormat = (value) => {
-
+                if (!value) {
+                    return null;
+                }
+                
                 const defultDate = new Date(value);
 
                 const month = (defultDate.getMonth() + 1).toString().padStart(2, "0");

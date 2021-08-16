@@ -1,32 +1,20 @@
 <template>
   <section class="todo-options todo-wrapper">
     <label>Todo *</label>
-    <input type="text" placeholder=""  v-model="todo.item" />
+    <input type="text" placeholder="" v-model="todo.item" />
 
     <label>Due To Date</label>
-    <input
-      type="date"
-      placeholder=""
-      v-model="todo.dueToDate"
-    />
+    <input type="date" placeholder="" v-model="todo.dueToDate" />
 
     <label>Details</label>
-    <textarea
-      type="text"
-      v-model="todo.details"
-      maxlength="500"
-    />
+    <textarea type="text" v-model="todo.details" maxlength="500" />
 
     <div class="todo-options__action">
-      <div class="padding-helf" @click="goPageHome">
-        <button class="circle-btn">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-      </div>
+      <button class="circle-btn padding-helf margin-helf" @click="goPageHome">
+        <i class="fas fa-arrow-left"></i>
+      </button>
 
-      <!-- <router-link to="/" class="padding-helf">
-      </router-link> -->
-      <button class="circle-btn padding-helf" @click="submitOptions">
+      <button class="circle-btn padding-helf margin-helf" @click="submitOptions">
         <i class="far fa-thumbs-up"></i>
       </button>
     </div>

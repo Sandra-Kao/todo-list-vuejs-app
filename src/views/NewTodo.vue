@@ -18,7 +18,7 @@ export default {
       todo: {
         item: "",
         isDone: false,
-        dueToDate: "",
+        dueToDate: null,
         details: "",
       },
     };

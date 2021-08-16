@@ -27,7 +27,7 @@ export default {
   props: {},
   mounted() {
     this.apiFetchTodoItems();
-    
+
     let { name } = this.$route;
     if (name !== "Home") {
       router.replace("/");
@@ -135,5 +135,13 @@ html {
 }
 .padding-helf {
   padding: 0.5rem;
+}
+.margin-helf {
+  margin: 0.5rem;
+}
+@media only screen and (max-width: 800px) {
+  .content-wrapper {
+    padding: 10px;
+  }
 }
 </style>

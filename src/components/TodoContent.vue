@@ -67,6 +67,10 @@ export default {
   },
   filters: {
     dateFormat: (value) => {
+      if (!value) {
+        return null;
+      }
+
       const defultDate = new Date(value);
 
       const month = (defultDate.getMonth() + 1).toString().padStart(2, "0");
@@ -85,33 +89,26 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+
 .todo-content__outer-1000 {
   width: 100%;
   max-width: 1000px;
   // background: var(--color-primary-base);
 }
+
 .todo-content h1 {
   font-weight: normal;
   font-size: 2.6rem;
   letter-spacing: 0.05em;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
+
 .todo-content h1 span {
   display: block;
   font-size: 0.8rem;
   margin-bottom: 0.7rem;
   margin-left: 3px;
   margin-top: 0.2rem;
-}
-
-.todo-content ul {
-  // margin-top: 2.6rem;
-  // list-style: none;
-  // font-size: 1.3rem;
-  // background: var(--color-primary-base);
-  // padding: 50px;
-  // border-radius: 10px;
-  // min-height: 70vh;
 }
 
 .todo-content__item-line {
@@ -124,37 +121,29 @@ export default {
   border-radius: 25px;
   margin-bottom: 1rem;
 }
-// .todo-content__item-line::after {
-//   content: "\f2ed";
-//    font-family: "Font Awesome 5 Free";
-//   display: block;
-//   position:absolute;
-//   transform: translate(-50%,-50%);
-//   top:50%;
-//   right: 1%;
-// }
-// .todo-content__item-line::after:hover {
-//   cursor: pointer;
-//   color: var(--color-white);
-// }
+
 .todo-content__item-main {
   display: flex;
   flex-direction: column;
 }
+
 .todo-content__item-main .dueToDate {
   margin-top: 1%;
   font-size: 70%;
   color: var(--color-primary-light);
 }
+
 .todo-content__item-line p {
   transition: 0.1s ease-out;
   width: 100%;
   margin-right: 1rem;
 }
+
 .todo-content__item-line p:hover {
   cursor: pointer;
   color: var(--color-white);
 }
+
 .todo-content__item-line p:focus,
 .todo-content__item-line p:active {
   color: var(--color-primary-light);
@@ -164,14 +153,17 @@ export default {
   position: relative;
   margin-right: 1rem;
 }
+
 .todo-content__item-line i:hover {
   cursor: pointer;
   color: var(--color-white);
 }
+
 .todo-content__item-line i:focus,
 .todo-content__item-line i:active {
   color: var(--color-primary-light);
 }
+
 .todo-content__item-line i::after {
   content: "";
   display: block;
@@ -181,6 +173,7 @@ export default {
   left: 50%;
   padding: 1rem;
 }
+
 .todo-content__item-line i.checked::after {
   content: "\f058";
   display: block;
@@ -196,13 +189,11 @@ export default {
   visibility: hidden;
   opacity: 0;
 }
+
 .todo-content__add-input.active,
 .todo-content__add-input.active i {
   visibility: visible;
   opacity: 1;
-}
-
-.todo-content__add-input {
 }
 
 button.todo-content__add-btn {
@@ -212,19 +203,23 @@ button.todo-content__add-btn {
   height: 4rem;
   background: var(--color-spotlight-purple);
   border-radius: 100%;
-  // position: absolute;
-  // transform: translate(-50%, -50%);
-  // right: 20%;
-  // bottom: 4rem;
   color: var(--color-white);
   border: transparent;
 }
+
 button.todo-content__add-btn:hover {
   cursor: pointer;
   color: var(--color-white);
 }
+
 button.todo-content__add-btn i:focus,
 button.todo-content__add-btn i:active {
   color: var(--color-primary-light);
+}
+
+@media only screen and (max-width: 800px) {
+  .todo-content__item-line {
+    padding: 1rem 1rem;
+  }
 }
 </style>
