@@ -140,7 +140,8 @@ html {
   margin: 0.5rem;
 }
 @media only screen and (max-width: 800px) {
-  .content-wrapper {
+  .content-wrapper ,
+  .todo-wrapper{
     padding: 10px;
   }
 }

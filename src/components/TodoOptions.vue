@@ -14,7 +14,10 @@
         <i class="fas fa-arrow-left"></i>
       </button>
 
-      <button class="circle-btn padding-helf margin-helf" @click="submitOptions">
+      <button
+        class="circle-btn padding-helf margin-helf"
+        @click="submitOptions"
+      >
         <i class="far fa-thumbs-up"></i>
       </button>
     </div>
@@ -115,5 +118,16 @@ export default {
 .todo-options__action {
   display: flex;
   justify-content: center;
+}
+@media only screen and (max-width: 800px) {
+  .todo-wrapper {
+    padding: 1rem 1rem;
+  }
+  .todo-options textarea,
+  .todo-options input,
+  .todo-options label {
+    padding-left: 1rem;    
+    padding-right: 1rem;
+  }
 }
 </style>
